@@ -2,6 +2,9 @@ package com.laundryonlineapp;
 
 import com.facebook.react.ReactActivity;
 
+// Addition
+import android.os.Bundle; // React Navigation Intstallation
+
 public class MainActivity extends ReactActivity {
 
   /**
@@ -11,5 +14,11 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "LaundryOnlineApp";
+  }
+  
+  // React Navigation Intstallation
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
   }
 }
