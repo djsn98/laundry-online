@@ -1,6 +1,7 @@
 import React from 'react'
 import { Dimensions, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { ImageHeader, Logo } from '../../assets'
+import { Saldo } from '../../components'
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
                     <Text style={styles.username}>Dennis Jason</Text>
                 </View>
             </ImageBackground>
+            <Saldo />
         </View>
     )
 }
