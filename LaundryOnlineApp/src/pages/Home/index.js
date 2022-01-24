@@ -1,30 +1,40 @@
 import React from 'react'
-import { Dimensions, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { ImageHeader, Logo } from '../../assets'
-import { ButtonIcon, Saldo } from '../../components'
+import { ButtonIcon, Saldo, PesananAktif } from '../../components'
+import { WARNA_ABU_ABU } from '../../utils/constant'
 
 const Home = () => {
     return (
         <View style={styles.page}>
-            <ImageBackground source={ImageHeader} style={styles.header}>
-                <Image source={Logo} style={styles.logo} />
-                <View style={styles.hello}>
-                    <Text style={styles.selamat}>Selamat Datang,</Text>
-                    <Text style={styles.username}>Dennis Jason</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <ImageBackground source={ImageHeader} style={styles.header}>
+                    <Image source={Logo} style={styles.logo} />
+                    <View style={styles.hello}>
+                        <Text style={styles.selamat}>Selamat Datang,</Text>
+                        <Text style={styles.username}>Dennis Jason</Text>
+                    </View>
+                </ImageBackground>
+                <Saldo />
+                <View style={styles.layanan}>
+                    <Text style={styles.label}>Layanan Kami</Text>
+                    <View style={styles.iconLayanan}>
+                        <ButtonIcon title="Kiloan" type="layanan" />
+                        <ButtonIcon title="Satuan" type="layanan" />
+                        <ButtonIcon title="VIP" type="layanan" />
+                        <ButtonIcon title="Karpet" type="layanan" />
+                        <ButtonIcon title="Setrika Saja" type="layanan" />
+                        <ButtonIcon title="Express" type="layanan" />
+                    </View>
                 </View>
-            </ImageBackground>
-            <Saldo />
-            <View style={styles.layanan}>
-                <Text style={styles.label}>Layanan Kami</Text>
-                <View style={styles.iconLayanan}>
-                    <ButtonIcon title="Kiloan" type="layanan"/>
-                    <ButtonIcon title="Satuan" type="layanan"/>
-                    <ButtonIcon title="VIP" type="layanan"/>
-                    <ButtonIcon title="Karpet" type="layanan"/>
-                    <ButtonIcon title="Setrika Saja" type="layanan"/>
-                    <ButtonIcon title="Express" type="layanan"/>
+                <View style={styles.pesananAktif}>
+                    <Text style={styles.label}>Pesanan Aktif</Text>
+                    <PesananAktif title="Pesanan No.0001212" status="Sudah Selesai"/>
+                    <PesananAktif title="Pesanan No.0001213" status="Masih Dicuci"/>
+                    <PesananAktif title="Pesanan No.0001214" status="Sudah Selesai"/>
+                    <PesananAktif title="Pesanan No.0001215" status="Sudah Selesai"/>
                 </View>
-            </View>
+            </ScrollView>
         </View>
     )
 }
@@ -36,7 +46,8 @@ const windowHeight = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
     page: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
     header: {
         width: windowWidth,
@@ -70,7 +81,15 @@ const styles = StyleSheet.create({
     iconLayanan: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 12,
+        marginTop: 10,
         flexWrap: 'wrap',
+    },
+    pesananAktif: {
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        backgroundColor: WARNA_ABU_ABU,
+        flex: 1,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
     }
 })
