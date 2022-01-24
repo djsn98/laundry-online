@@ -1,24 +1,36 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { IconAddSaldo, IconGetPoint } from '../../assets'
+import { IconAddSaldo, IconGetPoint, IconKiloan, IconKarpet, IconVIP, IconSetrika, IconEkspress, IconSatuan } from '../../assets'
 import { WARNA_SEKUNDER } from '../../utils/constant'
 
-const ButtonIcon = ({title}) => {
+const ButtonIcon = ({title, type}) => {
 
     const Icon = () => {
         if (title === "Add Saldo") return <IconAddSaldo />
 
         if (title === "Get Point") return <IconGetPoint />
 
+        if (title === "Kiloan") return <IconKiloan />
+
+        if (title === "Satuan") return <IconSatuan />
+
+        if (title === "VIP") return <IconVIP />
+
+        if (title === "Karpet") return <IconKarpet />
+
+        if (title === "Setrika Saja") return <IconSetrika />
+
+        if (title === "Express") return <IconEkspress />
+
         return <IconAddSaldo />
     }
 
     return (
-        <TouchableOpacity>
-            <View style={styles.icon}>
+        <TouchableOpacity style={styles.container(type)}>
+            <View style={styles.icon(type)}>
                 <Icon />
             </View>
-            <Text style={styles.text}>{title}</Text>
+            <Text style={styles.text(type)}>{title}</Text>
         </TouchableOpacity>
     )
 }
@@ -26,14 +38,18 @@ const ButtonIcon = ({title}) => {
 export default ButtonIcon;
 
 const styles = StyleSheet.create({
-    icon: {
+    container: (type) => ({
+        marginBottom: 12,
+        marginRight: type === "layanan" ? 25 : 0,
+    }),
+    icon: (type) => ({
         backgroundColor: WARNA_SEKUNDER,
-        padding: 7,
+        padding: type === "layanan"? 12 : 7,
         borderRadius: 10
-    },
-    text: {
-        fontSize: 10,
-        fontFamily: 'TitilliumWeb-Regular',
+    }),
+    text: (type) => ({
+        fontSize: type === "layanan"? 14 : 10,
+        fontFamily: type === "layanan"? 'TitilliumWeb-Light' : 'TitilliumWeb--Regular',
         textAlign: 'center'
-    }
+    }),
 })

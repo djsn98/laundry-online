@@ -27,7 +27,7 @@ const Router = () => {
             <Stack.Screen name="MainApp" component={MainApp} options={{ headerShown: false }}/>
         </Stack.Navigator>
     )
-}
+};
 
 export default Router
 
