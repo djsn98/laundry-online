@@ -1,14 +1,14 @@
 import { StyleSheet, Text, Dimensions, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { IconPesananAktif } from '../../assets';
-import { WARNA_ABU_ABU, WARNA_SEKUNDER, WARNA_UTAMA, WARNA_WARNING } from '../../utils/constant';
+import { WARNA_ABU_ABU, WARNA_UTAMA, WARNA_WARNING } from '../../utils/constant';
 
-const PesananAktif = ({title, status}) => {
+const PesananAktif = ({orderId, status}) => {
   return (
     <TouchableOpacity style={styles.container}>
       <IconPesananAktif />
       <View style={styles.text}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>Pesanan No. {orderId}</Text>
         <Text style={styles.status(status)}>{status}</Text>
       </View>
     </TouchableOpacity>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
     elevation: 3,
-    marginVertical: windowHeight*0.01,
+    marginVertical: windowHeight*0.005,
     alignItems: 'center',
   },
   text: {

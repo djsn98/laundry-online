@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Dimensions } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { WARNA_ABU_ABU, WARNA_UTAMA } from '../../utils/constant';
 import SwitchSelector from "react-native-switch-selector";
+import { PesananAktif } from '../../components';
 
 const Pesanan = () => {
     const [searchQuery, setSearchQuery] = React.useState('');
@@ -11,7 +12,7 @@ const Pesanan = () => {
         { label: "Aktif", value: "1", activeColor: WARNA_UTAMA },
         { label: "Selesai", value: "1.5", activeColor: WARNA_UTAMA },
         { label: "Semua", value: "2", activeColor: WARNA_UTAMA }
-      ];
+    ];
 
     const onChangeSearch = (query) => {
         console.log(query)
@@ -37,11 +38,29 @@ const Pesanan = () => {
                 initial={0}
                 onPress={value => console.log(`Call onPress with value: ${value}`)}
             />
+            <View style={styles.container}>
+                <FlatList
+                    data={[
+                        { orderId: "0001212", status: "Sudah Selesai" },
+                        { orderId: "0001213", status: "Masih Dicuci" },
+                        { orderId: "0001214", status: "Sudah Selesai" },
+                        { orderId: "0001215", status: "Masih Dicuci" },
+                        { orderId: "0001216", status: "Sudah Selesai" },
+                        { orderId: "0001217", status: "Masih Dicuci" },
+                        { orderId: "0001218", status: "Sudah Selesai" },
+                        { orderId: "0001219", status: "Sudah Selesai" },
+                    ]}
+                    renderItem={({ item }) => <PesananAktif orderId={item.orderId} status={item.status}/>}
+                    showsVerticalScrollIndicator={false}
+                />
+            </View>
         </View>
     )
 }
 
 export default Pesanan
+
+const windowWidth = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
     page: {
@@ -53,7 +72,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10
     },
-    searchBar:{
+    searchBar: {
         borderRadius: 50,
         height: 40,
     },
@@ -71,4 +90,9 @@ const styles = StyleSheet.create({
     textSelected: {
         fontFamily: 'TitilliumWeb-SemiBold'
     },
+    container: {
+        flex: 1,
+        paddingHorizontal: windowWidth * 0.035,
+        marginTop: 10
+    }
 })

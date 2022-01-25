@@ -29,10 +29,10 @@ const Home = () => {
                 </View>
                 <View style={styles.pesananAktif}>
                     <Text style={styles.label}>Pesanan Aktif</Text>
-                    <PesananAktif title="Pesanan No.0001212" status="Sudah Selesai"/>
-                    <PesananAktif title="Pesanan No.0001213" status="Masih Dicuci"/>
-                    <PesananAktif title="Pesanan No.0001214" status="Sudah Selesai"/>
-                    <PesananAktif title="Pesanan No.0001215" status="Sudah Selesai"/>
+                    <PesananAktif orderId="0001212" status="Sudah Selesai"/>
+                    <PesananAktif orderId="0001213" status="Masih Dicuci"/>
+                    <PesananAktif orderId="0001214" status="Sudah Selesai"/>
+                    <PesananAktif orderId="0001215" status="Sudah Selesai"/>
                 </View>
             </ScrollView>
         </View>
