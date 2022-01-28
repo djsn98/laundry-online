@@ -7,17 +7,33 @@ import { PesananAktif } from '../../components';
 
 const Pesanan = () => {
     const [searchQuery, setSearchQuery] = React.useState('');
+    const [orderList, setOrderList] = React.useState([
+        { orderId: "0001212", status: "Sudah Selesai" },
+        { orderId: "0001213", status: "Masih Dicuci" },
+        { orderId: "0001214", status: "Sudah Selesai" },
+        { orderId: "0001215", status: "Masih Dicuci" },
+        { orderId: "0001216", status: "Sudah Selesai" },
+        { orderId: "0001217", status: "Masih Dicuci" },
+        { orderId: "0001218", status: "Sudah Selesai" },
+        { orderId: "0001219", status: "Sudah Selesai" },
+    ]);
 
     const options = [
-        { label: "Aktif", value: "1", activeColor: WARNA_UTAMA },
-        { label: "Selesai", value: "1.5", activeColor: WARNA_UTAMA },
-        { label: "Semua", value: "2", activeColor: WARNA_UTAMA }
+        { label: "Aktif", value: "aktif", activeColor: WARNA_UTAMA },
+        { label: "Selesai", value: "selesai", activeColor: WARNA_UTAMA },
+        { label: "Semua", value: "semua", activeColor: WARNA_UTAMA }
     ];
 
+    // fungsi untuk ngambil data search
     const onChangeSearch = (query) => {
-        console.log(query)
         setSearchQuery(query)
+        console.log(searchQuery)
     };
+
+    // fungsi untuk switch data order
+    const onShiftSwitch = (value) => {
+        console.log(`Call onPress with value: ${value}`)
+    }
 
     return (
         <View style={styles.page}>
@@ -36,20 +52,11 @@ const Pesanan = () => {
                 selectedTextStyle={styles.textSelected}
                 options={options}
                 initial={0}
-                onPress={value => console.log(`Call onPress with value: ${value}`)}
+                onPress={onShiftSwitch}
             />
             <View style={styles.container}>
                 <FlatList
-                    data={[
-                        { orderId: "0001212", status: "Sudah Selesai" },
-                        { orderId: "0001213", status: "Masih Dicuci" },
-                        { orderId: "0001214", status: "Sudah Selesai" },
-                        { orderId: "0001215", status: "Masih Dicuci" },
-                        { orderId: "0001216", status: "Sudah Selesai" },
-                        { orderId: "0001217", status: "Masih Dicuci" },
-                        { orderId: "0001218", status: "Sudah Selesai" },
-                        { orderId: "0001219", status: "Sudah Selesai" },
-                    ]}
+                    data={orderList}
                     renderItem={({ item }) => <PesananAktif orderId={item.orderId} status={item.status}/>}
                     showsVerticalScrollIndicator={false}
                 />

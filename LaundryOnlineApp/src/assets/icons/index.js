@@ -13,6 +13,7 @@ import IconEkspress from './ekspress.svg';
 import IconSetrika from './setrika.svg';
 import IconKarpet from './karpet.svg';
 import IconPesananAktif from './pesananAktif.svg'
+import IconNoPhotoProfile from './noPhotoProfile.jpg'
 
 export {
   IconAkun,
@@ -29,5 +30,6 @@ export {
   IconEkspress,
   IconSetrika,
   IconKarpet,
-  IconPesananAktif
+  IconPesananAktif,
+  IconNoPhotoProfile,
 };
