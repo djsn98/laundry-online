@@ -4,11 +4,11 @@ import "gorm.io/gorm"
 
 // Status enum value
 const (
-	wait_paid = "belum-dibayar"
+	wait_paid = "menunggu-pembayaran"
 	paid      = "lunas"
 	pick_up   = "jemput"
 	process   = "proses"
-	deliver   = "antar"
+	deliver   = "diantar"
 	done      = "selesai"
 )
 
