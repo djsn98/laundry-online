@@ -45,7 +45,7 @@ func (sri *ServiceRepoImpl) FindAll(ctx context.Context) (*[]core.Service, error
 func (sri *ServiceRepoImpl) FindById(ctx context.Context, serviceId *uint) (*core.Service, error) {
 	var service core.Service
 
-	err := sri.DB.First(&service).Error
+	err := sri.DB.First(&service, serviceId).Error
 	if err != nil {
 		return &service, err
 	}
