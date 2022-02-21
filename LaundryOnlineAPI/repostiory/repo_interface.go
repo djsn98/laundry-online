@@ -20,3 +20,11 @@ type CustomerRepoInterface interface {
 	Update(ctx context.Context, customer *core.Customer) error
 	Destroy(ctx context.Context, customerId *uint) error
 }
+
+type OrderRepoInterface interface {
+	Save(ctx context.Context, order *core.Order) error
+	FindAll(ctx context.Context) (*[]core.Order, error)
+	FindById(ctx context.Context, orderId *uint) (*core.Order, error)
+	Update(ctx context.Context, order *core.Order) error
+	Destroy(ctx context.Context, orderId *uint) error
+}
