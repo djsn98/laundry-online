@@ -1,0 +1,1072 @@
+{
+   "openapi": "3.0.3",
+   "info": {
+      "title": "Laundry Online API",
+      "description": "API services for provide Laundry Online mobile app.",
+      "version": "1",
+      "contact": {
+         "name": "Dennis Jason",
+         "email": "jasonden98@gmail.com"
+      }
+   },
+   "servers": [
+      {
+         "url": "http://localhost:3000",
+         "description": "Laundry Online RESTful API Server"
+      }
+   ],
+   "paths": {
+      "/service": {
+         "post": {
+            "tags": ["Service CRUD"],
+            "summary": "Create New Laundry Service",
+            "description": "Add new one service to table service in database",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "name": {
+                              "type": "string",
+                              "required": true,
+                              "minLength": 3
+                           },
+                           "price_per_kg": {
+                              "type": "number",
+                              "required": true
+                           }
+                        }
+                     },
+                     "example": {
+                        "name": "setrika",
+                        "price_per_kg": 10000
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success Create New Service",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success create new laundry service!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/services": {
+         "get": {
+            "tags": ["Service CRUD"],
+            "summary": "Read All of Laundry service",
+            "description": "Fetch all available service there is in database",
+            "responses": {
+               "200": {
+                  "description": "Success Fetch All Service",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "type": "array",
+                                 "items": {
+                                    "$ref": "#/components/schemas/ServiceWithId"
+                                 }
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": [
+                              {
+                                 "id": 1,
+                                 "name": "cuci",
+                                 "price_per_kg": 15000
+                              },
+                              {
+                                 "id": 2,
+                                 "name": "setrika",
+                                 "price_per_kg": 10000
+                              }
+                           ]
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/service/{service_id}": {
+         "get": {
+            "tags": ["Service CRUD"],
+            "summary": "Read By Id of Laundry service",
+            "description": "Fetch service by Id from database",
+            "parameters": [
+               {
+                  "name": "service_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success Fetch Service By Id",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Service"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "name": "cuci",
+                              "price_per_kg": 15000
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": ["Service CRUD"],
+            "summary": "Update one service by Id",
+            "description": "Update one service data by Id from database",
+            "parameters": [
+               {
+                  "name": "service_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "name": {
+                              "type": "string",
+                              "minLength": 3
+                           },
+                           "price_per_kg": {
+                              "type": "number"
+                           }
+                        }
+                     },
+                     "example": {
+                        "name": "setrika",
+                        "price_per_kg": 10000
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success Update Service",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success update one laundry service!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": ["Service CRUD"],
+            "summary": "Delete one service by Id",
+            "description": "Delete one service data by Id from database",
+            "parameters": [
+               {
+                  "name": "service_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success Delete Service",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success delete one laundry service!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/order": {
+         "post": {
+            "tags": ["Order CRUD"],
+            "summary": "Create New Order",
+            "description": "Add new order to table order in database",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "customer_id": {
+                              "type": "number",
+                              "required": true
+                           },
+                           "service_id": {
+                              "type": "number",
+                              "required": true
+                           },
+                           "dry_weight": {
+                              "type": "number",
+                              "required": true
+                           },
+                           "total_price": {
+                              "type": "number",
+                              "required": true
+                           },
+                           "status": {
+                              "type": "string",
+                              "required": true
+                           }
+                        }
+                     },
+                     "example": {
+                        "customer_id": 1,
+                        "service_id": 1,
+                        "dry_weight": 12,
+                        "total_price": 120000,
+                        "status": "menunggu-pembayaran"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success Create New Order",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success create new order!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/orders": {
+         "get": {
+            "tags": ["Order CRUD"],
+            "summary": "Read All of Order",
+            "description": "Fetch all available order there is in database",
+            "responses": {
+               "200": {
+                  "description": "Success Fetch All Order",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "type": "array",
+                                 "items": {
+                                    "$ref": "#/components/schemas/OrderWithId"
+                                 }
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": [
+                              {
+                                 "id": 1,
+                                 "customer_id": 2,
+                                 "service_id": 3,
+                                 "dry_weight": 13,
+                                 "total_price": 130000,
+                                 "status": "jemput"
+                              },
+                              {
+                                 "id": 2,
+                                 "customer_id": 2,
+                                 "service_id": 4,
+                                 "dry_weight": 5,
+                                 "total_price": 50000,
+                                 "status": "antar"
+                              }
+                           ]
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/order/{order_id}": {
+         "get": {
+            "tags": ["Order CRUD"],
+            "summary": "Read By Id of Order",
+            "description": "Fetch sorder by Id from database",
+            "parameters": [
+               {
+                  "name": "order_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success Fetch Order By Id",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Order"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "customer_id": 1,
+                              "service_id": 3,
+                              "dry_weight": 5,
+                              "total_price": 50000,
+                              "status": "selesai"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": ["Order CRUD"],
+            "summary": "Update one order by Id",
+            "description": "Update one order data by Id from database",
+            "parameters": [
+               {
+                  "name": "order_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "service_id": {
+                              "type": "number"
+                           },
+                           "dry_weight": {
+                              "type": "number"
+                           },
+                           "total_price": {
+                              "type": "number"
+                           },
+                           "status": {
+                              "type": "string"
+                           }
+                        }
+                     },
+                     "example": {
+                        "service_id": 2,
+                        "dry_weight": 6,
+                        "total_price": 60000,
+                        "status": "diantar"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success Update Order",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success update one order!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": ["Order CRUD"],
+            "summary": "Delete one order by Id",
+            "description": "Delete one order data by Id from database",
+            "parameters": [
+               {
+                  "name": "order_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success Delete Order",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success delete one order!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/customer": {
+         "post": {
+            "tags": ["Customer CRUD"],
+            "summary": "Add New Customer",
+            "description": "Add new customer to table customer in database",
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "name": {
+                              "type": "string",
+                              "required": true
+                           },
+                           "username": {
+                              "type": "string",
+                              "required": true
+                           },
+                           "password": {
+                              "type": "string",
+                              "required": true
+                           },
+                           "address": {
+                              "type": "string",
+                              "required": false
+                           }
+                        }
+                     },
+                     "example": {
+                        "name": "Budi Gunawan",
+                        "username": "@budi123",
+                        "password": "a2FjYW1hdGExMjM0NTZ1c2FzN2F0JjZzaHN",
+                        "address": "Jl. Anggur 3 No.12 blok AC, Kel. Harapan Jaya, Prov. Bekasi Utara , Kota Bekasi, Jawa Barat"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success Add New Customer",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success add new customer!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/customers": {
+         "get": {
+            "tags": ["Customer CRUD"],
+            "summary": "Read All of Customer",
+            "description": "Fetch all customer there is in database",
+            "responses": {
+               "200": {
+                  "description": "Success Fetch All Customer",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "type": "array",
+                                 "items": {
+                                    "$ref": "#/components/schemas/Customer"
+                                 }
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": [
+                              {
+                                 "name": "Antonio benz",
+                                 "username": "@anton123",
+                                 "Order": [
+                                    {
+                                       "id": 1,
+                                       "service_id": 3,
+                                       "dry_weight": 13,
+                                       "total_price": 130000,
+                                       "status": "jemput"
+                                    },
+                                    {
+                                       "id": 2,
+                                       "service_id": 4,
+                                       "dry_weight": 5,
+                                       "total_price": 50000,
+                                       "status": "antar"
+                                    }
+                                 ],
+                                 "address": "Jl. mawar 1 No.2 blok AB 4, Kel. Harapan Baru, Prov. Jakarta Utara, Kota Jakarta"
+                              },
+                              {
+                                 "name": "Aldo Joniko",
+                                 "username": "@aldo123",
+                                 "Order": [
+                                    {
+                                       "id": 3,
+                                       "service_id": 5,
+                                       "dry_weight": 10,
+                                       "total_price": 100000,
+                                       "status": "lunas"
+                                    },
+                                    {
+                                       "id": 4,
+                                       "service_id": 1,
+                                       "dry_weight": 1,
+                                       "total_price": 10000,
+                                       "status": "jemput"
+                                    }
+                                 ],
+                                 "address": "Jl. apel 1 No.3 blok AK 9, Kel. Harapan Baru, Prov. Jakarta Utara, Kota Jakarta"  
+                              }
+                           ]
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/customer/{customer_id}": {
+         "get": {
+            "tags": ["Customer CRUD"],
+            "summary": "Read By Id of Customer",
+            "description": "Fetch customer data by Id from database",
+            "parameters": [
+               {
+                  "name": "customer_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success Fetch Customer By Id",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Customer"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "name": "Aldo Joniko",
+                              "username": "aldo123",
+                              "Order": [
+                                 {
+                                    "id": 3,
+                                    "service_id": 5,
+                                    "dry_weight": 10,
+                                    "total_price": 100000,
+                                    "status": "lunas"
+                                 },
+                                 {
+                                    "id": 4,
+                                    "service_id": 1,
+                                    "dry_weight": 1,
+                                    "total_price": 10000,
+                                    "status": "jemput"
+                                 }
+                              ],
+                              "address": "Jl. apel 1 No.3 blok AK 9, Kel. Harapan Baru, Prov. Jakarta Utara, Kota Jakarta"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "put": {
+            "tags": ["Customer CRUD"],
+            "summary": "Update one Customer by Id",
+            "description": "Update one customer data by Id from database",
+            "parameters": [
+               {
+                  "name": "customer_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "requestBody": {
+               "required": true,
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "name": {
+                              "type": "string"
+                           },
+                           "username": {
+                              "type": "string"
+                           },
+                           "password": {
+                              "type": "string"
+                           },
+                           "balance": {
+                              "type": "number"
+                           },
+                           "address": {
+                              "type": "string"
+                           }
+                        }
+                     },
+                     "example": {
+                        "name": "Dennis Jason",
+                        "username": "@den123",
+                        "password": "a2FjYW1hdGExMjM0NTZ1c2FzN2F0JjZzaHN",
+                        "balance": 250000,
+                        "address": "Jl. apel 1 No.3 blok AK 9, Kel. Harapan Baru, Prov. Jakarta Utara, Kota Jakarta"
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "Success Update Customer",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success update one customer!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         },
+         "delete": {
+            "tags": ["Customer CRUD"],
+            "summary": "Delete one customer by Id",
+            "description": "Delete one customer data by Id from database",
+            "parameters": [
+               {
+                  "name": "customer_id",
+                  "required": true,
+                  "in": "path",
+                  "schema": {
+                     "type": "number"
+                  }
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Success Delete Customer",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "code": {
+                                 "type": "number"
+                              },
+                              "status": {
+                                 "type": "string"
+                              },
+                              "data": {
+                                 "$ref": "#/components/schemas/Message"
+                              }
+                           }
+                        },
+                        "example": {
+                           "code": 200,
+                           "status": "OK",
+                           "data": {
+                              "message": "Success delete one customer!"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+   },
+   "components": {
+      "schemas": {
+         "Service": {
+            "type": "object",
+            "properties": {
+               "name": {
+                  "type": "string"
+               }, 
+               "price_per_kg": {
+                  "type": "number"
+               }
+            }
+         }, 
+         "ServiceWithId": {
+            "type": "object",
+            "properties": {
+               "id": {
+                  "type": "number"
+               },
+               "name": {
+                  "type": "string"
+               }, 
+               "price_per_kg": {
+                  "type": "number"
+               }
+            }
+         },
+         "Order": {
+            "type": "object",
+            "properties": {
+               "customer_id": {
+                  "type": "number"
+               },
+               "service_id": {
+                  "type": "number"
+               },
+               "dry_weight": {
+                  "type": "number"
+               },
+               "total_price": {
+                  "type": "number"
+               },
+               "status": {
+                  "type": "string"
+               }
+            }
+         },
+         "OrderWithId": {
+            "type": "object",
+            "properties": {
+               "id": {
+                  "type": "number"
+               },
+               "customer_id": {
+                  "type": "number"
+               },
+               "service_id": {
+                  "type": "number"
+               },
+               "dry_weight": {
+                  "type": "number"
+               },
+               "total_price": {
+                  "type": "number"
+               },
+               "status": {
+                  "type": "string"
+               }
+            }
+         },
+         "OrderWithoutCustomerId": {
+            "type": "object",
+            "properties": {
+               "id": {
+                  "type": "number"
+               },
+               "service_id": {
+                  "type": "number"
+               },
+               "dry_weight": {
+                  "type": "number"
+               },
+               "total_price": {
+                  "type": "number"
+               },
+               "status": {
+                  "type": "string"
+               }
+            }
+         },
+         "Customer": {
+            "type": "object",
+            "properties": {
+               "name": {
+                  "type": "string"
+               },
+               "username": {
+                  "type": "string"
+               },
+               "Order": {
+                  "type": "array",
+                  "items": {
+                     "$ref": "#/components/schemas/OrderWithoutCustomerId"
+                  }
+               },
+               "address": {
+                  "type": "string"
+               }
+            }
+         },
+         "CustomerWithPass": {
+            "type": "object",
+            "properties": {
+               "name": {
+                  "type": "string"
+               },
+               "username": {
+                  "type": "string"
+               },
+               "password": {
+                  "type": "string"
+               },
+               "address": {
+                  "type": "string"
+               }
+            }
+         },
+         "Message": {
+            "type": "object",
+            "properties": {
+               "message": {
+                  "type": "string"
+               }
+            }
+         }
+      }
+   }
+}
