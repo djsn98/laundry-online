@@ -69,8 +69,12 @@ func (scui *ServiceCRUDUsecaseImpl) Update(ctx context.Context, req *serviceReqR
 		return errors.New("Order not exist!")
 	}
 
-	service.Name = req.Name
-	service.PricePerKg = req.PricePerKg
+	if req.Name != "" {
+		service.Name = req.Name
+	}
+	if req.PricePerKg != 0 {
+		service.PricePerKg = req.PricePerKg
+	}
 
 	err2 := scui.ServiceRepo.Update(ctx, service)
 	if err2 != nil {

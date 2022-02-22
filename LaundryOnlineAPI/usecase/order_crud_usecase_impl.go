@@ -76,10 +76,18 @@ func (ocui *OrderCRUDUsecaseImpl) Update(ctx context.Context, req *orderReqRes.U
 		return errors.New("Order not exist!")
 	}
 
-	order.ServiceID = req.ServiceId
-	order.DryWeight = uint8(req.DryWeight)
-	order.TotalPrice = uint32(req.TotalPrice)
-	order.Status = req.Status
+	if req.ServiceId != 0 {
+		order.ServiceID = req.ServiceId
+	}
+	if req.DryWeight != 0 {
+		order.DryWeight = uint8(req.DryWeight)
+	}
+	if req.TotalPrice != 0 {
+		order.TotalPrice = uint32(req.TotalPrice)
+	}
+	if req.Status != "" {
+		order.Status = req.Status
+	}
 
 	err2 := ocui.OrderRepo.Update(ctx, order)
 	if err2 != nil {
