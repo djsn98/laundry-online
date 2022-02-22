@@ -742,24 +742,24 @@
             }
          }
       },
-      "/customer/{customer_id}": {
+      "/customer/{customer_username}": {
          "get": {
             "tags": ["Customer CRUD"],
-            "summary": "Read By Id of Customer",
-            "description": "Fetch customer data by Id from database",
+            "summary": "Read By Username of Customer",
+            "description": "Fetch customer data by username from database",
             "parameters": [
                {
-                  "name": "customer_id",
+                  "name": "customer_username",
                   "required": true,
                   "in": "path",
                   "schema": {
-                     "type": "number"
+                     "type": "string"
                   }
                }
             ],
             "responses": {
                "200": {
-                  "description": "Success Fetch Customer By Id",
+                  "description": "Success Fetch Customer By Username",
                   "content": {
                      "application/json": {
                         "schema": {
@@ -808,15 +808,15 @@
          },
          "put": {
             "tags": ["Customer CRUD"],
-            "summary": "Update one Customer by Id",
-            "description": "Update one customer data by Id from database",
+            "summary": "Update one Customer by Username",
+            "description": "Update one customer data by Username from database",
             "parameters": [
                {
-                  "name": "customer_id",
+                  "name": "customer_username",
                   "required": true,
                   "in": "path",
                   "schema": {
-                     "type": "number"
+                     "type": "string"
                   }
                }
             ],
@@ -887,15 +887,15 @@
          },
          "delete": {
             "tags": ["Customer CRUD"],
-            "summary": "Delete one customer by Id",
-            "description": "Delete one customer data by Id from database",
+            "summary": "Delete one customer by Username",
+            "description": "Delete one customer data by Username from database",
             "parameters": [
                {
-                  "name": "customer_id",
+                  "name": "customer_username",
                   "required": true,
                   "in": "path",
                   "schema": {
-                     "type": "number"
+                     "type": "string"
                   }
                }
             ],
