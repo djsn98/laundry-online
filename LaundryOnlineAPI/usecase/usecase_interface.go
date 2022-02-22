@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"LaundryOnlineAPI/model/web/orderReqRes"
+	"LaundryOnlineAPI/model/web/serviceReqRes"
 	"context"
 )
 
@@ -11,4 +12,12 @@ type OrderCRUDUsecaseInterface interface {
 	ReadById(ctx context.Context, orderId *uint) (*orderReqRes.ReadOrderRes, error)
 	Update(ctx context.Context, req *orderReqRes.UpdateOrderReq) error
 	Delete(ctx context.Context, orderId *uint) error
+}
+
+type ServiceCRUDUsecaseInterface interface {
+	Create(ctx context.Context, req *serviceReqRes.CreateServiceReq) error
+	ReadAll(ctx context.Context) (*[]serviceReqRes.ReadServiceRes, error)
+	ReadById(ctx context.Context, serviceId *uint) (*serviceReqRes.ReadServiceRes, error)
+	Update(ctx context.Context, req *serviceReqRes.UpdateServiceReq) error
+	Delete(ctx context.Context, serviceId *uint) error
 }
