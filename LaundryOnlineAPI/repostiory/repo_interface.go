@@ -16,9 +16,9 @@ type ServiceRepoInterface interface {
 type CustomerRepoInterface interface {
 	Save(ctx context.Context, customer *core.Customer) error
 	FindAll(ctx context.Context) (*[]core.Customer, error)
-	FindById(ctx context.Context, customerId *uint) (*core.Customer, error)
+	FindByUsername(ctx context.Context, customerUsername *string) (*core.Customer, error)
 	Update(ctx context.Context, customer *core.Customer) error
-	Destroy(ctx context.Context, customerId *uint) error
+	Destroy(ctx context.Context, customerUsername *string) error
 }
 
 type OrderRepoInterface interface {

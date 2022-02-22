@@ -28,5 +28,5 @@ type CustomerCRUDUsecaseInterface interface {
 	ReadAll(ctx context.Context) (*[]customerReqRes.ReadCustomerRes, error)
 	ReadById(ctx context.Context, customerId *uint) (*customerReqRes.ReadCustomerRes, error)
 	Update(ctx context.Context, req *customerReqRes.UpdateCustomerReq) error
-	Delete(ctx context.Context, customerId *uint) error
+	Delete(ctx context.Context, customerUsername *string) error
 }

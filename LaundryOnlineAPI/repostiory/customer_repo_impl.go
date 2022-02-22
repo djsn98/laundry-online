@@ -42,10 +42,10 @@ func (cri *CustomerRepoImpl) FindAll(ctx context.Context) (*[]core.Customer, err
 	return &customers, nil
 }
 
-func (cri *CustomerRepoImpl) FindById(ctx context.Context, customerId *uint) (*core.Customer, error) {
+func (cri *CustomerRepoImpl) FindByUsername(ctx context.Context, customerUsername *string) (*core.Customer, error) {
 	var customer core.Customer
 
-	err := cri.DB.First(&customer, customerId).Error
+	err := cri.DB.First(&customer, customerUsername).Error
 	if err != nil {
 		return &customer, err
 	}
@@ -72,9 +72,9 @@ func (cri *CustomerRepoImpl) Update(ctx context.Context, customer *core.Customer
 	return nil
 }
 
-func (cri *CustomerRepoImpl) Destroy(ctx context.Context, customerId *uint) error {
+func (cri *CustomerRepoImpl) Destroy(ctx context.Context, customerUsername *string) error {
 	err := cri.DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Delete(&core.Customer{}, customerId).Error; err != nil {
+		if err := tx.Delete(&core.Customer{}, customerUsername).Error; err != nil {
 			return err
 		}
 		return nil
