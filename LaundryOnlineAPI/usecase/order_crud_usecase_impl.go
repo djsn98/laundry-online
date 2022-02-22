@@ -5,6 +5,7 @@ import (
 	"LaundryOnlineAPI/model/web/orderReqRes"
 	"LaundryOnlineAPI/repostiory"
 	"context"
+	"errors"
 )
 
 type OrderCRUDUsecaseImpl struct {
@@ -66,25 +67,40 @@ func (ocui *OrderCRUDUsecaseImpl) ReadById(ctx context.Context, orderId *uint) (
 }
 
 func (ocui *OrderCRUDUsecaseImpl) Update(ctx context.Context, req *orderReqRes.UpdateOrderReq) error {
-	order := &core.Order{
-		ServiceID:  req.ServiceId,
-		DryWeight:  req.DryWeight,
-		TotalPrice: req.TotalPrice,
-		Status:     req.Status,
-	}
-	order.ID = req.OrderId
-
-	err := ocui.OrderRepo.Update(ctx, order)
+	order, err := ocui.OrderRepo.FindById(ctx, &req.OrderId)
 	if err != nil {
 		return err
+	}
+
+	if order.ID == 0 {
+		return errors.New("Order not exist!")
+	}
+
+	order.ServiceID = req.ServiceId
+	order.DryWeight = uint8(req.DryWeight)
+	order.TotalPrice = uint32(req.TotalPrice)
+	order.Status = req.Status
+
+	err2 := ocui.OrderRepo.Update(ctx, order)
+	if err2 != nil {
+		return err2
 	}
 	return nil
 }
 
 func (ocui *OrderCRUDUsecaseImpl) Delete(ctx context.Context, orderId *uint) error {
-	err := ocui.OrderRepo.Destroy(ctx, orderId)
+	order, err := ocui.OrderRepo.FindById(ctx, orderId)
 	if err != nil {
 		return err
+	}
+
+	if order.ID == 0 {
+		return errors.New("Order not exist!")
+	}
+
+	err2 := ocui.OrderRepo.Destroy(ctx, &order.ID)
+	if err2 != nil {
+		return err2
 	}
 	return nil
 }
