@@ -73,19 +73,19 @@ func (ccui *CustomerCRUDUsecaseImpl) Update(ctx context.Context, req *customerRe
 		return errors.New("Customer not exist!")
 	}
 
-	if req.Name == "" {
+	if req.Name != "" {
 		customer.Name = req.Name
 	}
-	if req.Username == "" {
+	if req.Username != "" {
 		customer.Username = req.Username
 	}
-	if req.Password == "" {
+	if req.Password != "" {
 		customer.Password = req.Password
 	}
-	if req.Balance == 0 {
+	if req.Balance != 0 {
 		customer.Balance = req.Balance
 	}
-	if req.Address == "" {
+	if req.Address != "" {
 		customer.Address = req.Address
 	}
 
