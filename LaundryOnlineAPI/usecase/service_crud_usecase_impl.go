@@ -5,7 +5,6 @@ import (
 	"LaundryOnlineAPI/model/web/serviceReqRes"
 	"LaundryOnlineAPI/repostiory"
 	"context"
-	"errors"
 )
 
 type ServiceCRUDUsecaseImpl struct {
@@ -69,10 +68,6 @@ func (scui *ServiceCRUDUsecaseImpl) Update(ctx context.Context, req *serviceReqR
 		return err
 	}
 
-	if service.ID == 0 {
-		return errors.New("Order not exist!")
-	}
-
 	if req.Name != "" {
 		service.Name = req.Name
 	}
@@ -91,10 +86,6 @@ func (scui *ServiceCRUDUsecaseImpl) Delete(ctx context.Context, serviceId *uint)
 	service, err := scui.ServiceRepo.FindById(ctx, serviceId)
 	if err != nil {
 		return err
-	}
-
-	if service.ID == 0 {
-		return errors.New("Order not exist!")
 	}
 
 	err2 := scui.ServiceRepo.Destroy(ctx, &service.ID)

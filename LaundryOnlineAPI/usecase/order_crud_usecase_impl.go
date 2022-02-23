@@ -5,7 +5,6 @@ import (
 	"LaundryOnlineAPI/model/web/orderReqRes"
 	"LaundryOnlineAPI/repostiory"
 	"context"
-	"errors"
 )
 
 type OrderCRUDUsecaseImpl struct {
@@ -76,10 +75,6 @@ func (ocui *OrderCRUDUsecaseImpl) Update(ctx context.Context, req *orderReqRes.U
 		return err
 	}
 
-	if order.ID == 0 {
-		return errors.New("Order not exist!")
-	}
-
 	if req.ServiceId != 0 {
 		order.ServiceID = req.ServiceId
 	}
@@ -104,10 +99,6 @@ func (ocui *OrderCRUDUsecaseImpl) Delete(ctx context.Context, orderId *uint) err
 	order, err := ocui.OrderRepo.FindById(ctx, orderId)
 	if err != nil {
 		return err
-	}
-
-	if order.ID == 0 {
-		return errors.New("Order not exist!")
 	}
 
 	err2 := ocui.OrderRepo.Destroy(ctx, &order.ID)

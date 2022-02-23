@@ -5,7 +5,6 @@ import (
 	"LaundryOnlineAPI/model/web/customerReqRes"
 	"LaundryOnlineAPI/repostiory"
 	"context"
-	"errors"
 )
 
 type CustomerCRUDUsecaseImpl struct {
@@ -73,10 +72,6 @@ func (ccui *CustomerCRUDUsecaseImpl) Update(ctx context.Context, req *customerRe
 		return err
 	}
 
-	if customer.Name == "" {
-		return errors.New("Customer not exist!")
-	}
-
 	if req.Name != "" {
 		customer.Name = req.Name
 	}
@@ -104,10 +99,6 @@ func (ccui *CustomerCRUDUsecaseImpl) Delete(ctx context.Context, customerUsernam
 	customer, err := ccui.CustomerRepo.FindByUsername(ctx, customerUsername)
 	if err != nil {
 		return err
-	}
-
-	if customer.Name == "" {
-		return errors.New("Customer not exist!")
 	}
 
 	err2 := ccui.CustomerRepo.Destroy(ctx, &customer.Username)

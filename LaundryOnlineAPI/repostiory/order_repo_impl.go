@@ -55,7 +55,7 @@ func (ori *OrderRepoImpl) FindById(ctx context.Context, orderId *uint) (*core.Or
 	}
 
 	if order.Status == "" {
-		return &order, errors.New("Customer not found!")
+		return &order, errors.New("Order not found!")
 	}
 
 	return &order, nil
