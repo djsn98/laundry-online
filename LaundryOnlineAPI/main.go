@@ -1,8 +1,6 @@
 package main
 
-import (
-	"LaundryOnlineAPI/router"
-)
+import "LaundryOnlineAPI/router"
 
 func main() {
 	router := router.New()
