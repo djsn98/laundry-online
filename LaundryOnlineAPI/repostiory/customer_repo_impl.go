@@ -12,6 +12,10 @@ type CustomerRepoImpl struct {
 	DB *gorm.DB
 }
 
+func NewCustomerRepoImpl(DB *gorm.DB) CustomerRepoInterface {
+	return &CustomerRepoImpl{DB: DB}
+}
+
 func (cri *CustomerRepoImpl) Save(ctx context.Context, customer *core.Customer) error {
 	err := cri.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(customer).Error; err != nil {

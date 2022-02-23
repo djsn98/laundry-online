@@ -12,6 +12,10 @@ type OrderCRUDUsecaseImpl struct {
 	OrderRepo repostiory.OrderRepoInterface
 }
 
+func NewOrderCRUDUsecaseImpl(OrderRepo repostiory.OrderRepoInterface) OrderCRUDUsecaseInterface {
+	return &OrderCRUDUsecaseImpl{OrderRepo: OrderRepo}
+}
+
 func (ocui *OrderCRUDUsecaseImpl) Create(ctx context.Context, req *orderReqRes.CreateOrderReq) error {
 	order := &core.Order{
 		CustomerID: req.CustomerId,

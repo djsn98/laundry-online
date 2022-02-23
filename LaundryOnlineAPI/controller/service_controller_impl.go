@@ -14,6 +14,10 @@ type ServiceControllerImpl struct {
 	ServiceUsecase usecase.ServiceCRUDUsecaseInterface
 }
 
+func NewServiceControllerImpl(ServiceUsecase usecase.ServiceCRUDUsecaseInterface) ServiceControllerInterface {
+	return &ServiceControllerImpl{ServiceUsecase: ServiceUsecase}
+}
+
 func (sci *ServiceControllerImpl) Create(c *gin.Context) {
 	var createServiceReq serviceReqRes.CreateServiceReq
 

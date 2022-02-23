@@ -4,12 +4,13 @@ import (
 	"database/sql"
 	"time"
 
+	_ "github.com/lib/pq"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func Connect() *gorm.DB {
-	sqlDB, err := sql.Open("postgres", "host=localhost user=postgres password=susah13234 dbname=learn_grpc port=5432 sslmode=disable TimeZone=Asia/Jakarta")
+	sqlDB, err := sql.Open("postgres", "host=localhost port=5432 user=dennis dbname=laundry_online_api_db sslmode=disable password=susah13234")
 	if err != nil {
 		panic(err)
 	}

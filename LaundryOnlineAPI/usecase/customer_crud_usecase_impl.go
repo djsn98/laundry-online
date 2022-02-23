@@ -12,6 +12,10 @@ type CustomerCRUDUsecaseImpl struct {
 	CustomerRepo repostiory.CustomerRepoInterface
 }
 
+func NewCustomerCRUDUsecaseImpl(CustomerRepo repostiory.CustomerRepoInterface) CustomerCRUDUsecaseInterface {
+	return &CustomerCRUDUsecaseImpl{CustomerRepo: CustomerRepo}
+}
+
 func (ccui *CustomerCRUDUsecaseImpl) Create(ctx context.Context, req *customerReqRes.CreateCustomerReq) error {
 	customer := &core.Customer{
 		Name:     req.Name,

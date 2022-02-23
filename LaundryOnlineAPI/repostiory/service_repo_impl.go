@@ -12,6 +12,10 @@ type ServiceRepoImpl struct {
 	DB *gorm.DB
 }
 
+func NewServiceRepoImpl(DB *gorm.DB) ServiceRepoInterface {
+	return &ServiceRepoImpl{DB: DB}
+}
+
 func (sri *ServiceRepoImpl) Save(ctx context.Context, service *core.Service) error {
 	err := sri.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(service).Error; err != nil {

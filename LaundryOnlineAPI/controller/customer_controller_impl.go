@@ -13,6 +13,10 @@ type CustomerControllerImpl struct {
 	CustomerUsecase usecase.CustomerCRUDUsecaseInterface
 }
 
+func NewCustomerControllerImpl(CustomerUsecase usecase.CustomerCRUDUsecaseInterface) CustomerControllerInterface {
+	return &CustomerControllerImpl{CustomerUsecase: CustomerUsecase}
+}
+
 func (cci *CustomerControllerImpl) Create(c *gin.Context) {
 	var createCustomerReq customerReqRes.CreateCustomerReq
 

@@ -12,6 +12,10 @@ type ServiceCRUDUsecaseImpl struct {
 	ServiceRepo repostiory.ServiceRepoInterface
 }
 
+func NewServiceCRUDUsecaseImpl(ServiceRepo repostiory.ServiceRepoInterface) ServiceCRUDUsecaseInterface {
+	return &ServiceCRUDUsecaseImpl{ServiceRepo: ServiceRepo}
+}
+
 func (scui *ServiceCRUDUsecaseImpl) Create(ctx context.Context, req *serviceReqRes.CreateServiceReq) error {
 	service := &core.Service{
 		Name:       req.Name,

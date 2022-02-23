@@ -12,6 +12,10 @@ type OrderRepoImpl struct {
 	DB *gorm.DB
 }
 
+func NewOrderRepoImpl(DB *gorm.DB) OrderRepoInterface {
+	return &OrderRepoImpl{DB: DB}
+}
+
 func (ori *OrderRepoImpl) Save(ctx context.Context, order *core.Order) error {
 	err := ori.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(order).Error; err != nil {

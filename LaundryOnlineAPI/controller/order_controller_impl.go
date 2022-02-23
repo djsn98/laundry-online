@@ -14,6 +14,10 @@ type OrderControllerImpl struct {
 	OrderUsecase usecase.OrderCRUDUsecaseInterface
 }
 
+func NewOrderControllerImpl(OrderUsecase usecase.OrderCRUDUsecaseInterface) OrderControllerInterface {
+	return &OrderControllerImpl{OrderUsecase: OrderUsecase}
+}
+
 func (oci *OrderControllerImpl) Create(c *gin.Context) {
 	var createOrderReq orderReqRes.CreateOrderReq
 
