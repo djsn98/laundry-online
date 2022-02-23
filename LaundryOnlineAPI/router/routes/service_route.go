@@ -1,31 +1,35 @@
 package routes
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 var ServiceRoute = []Route{
 	{
 		URI:     "/service",
 		Method:  http.MethodPost,
-		Handler: serviceController.Create,
+		Handler: func(c *gin.Context) { serviceController.Create(c) },
 	},
 	{
 		URI:     "/services",
 		Method:  http.MethodGet,
-		Handler: serviceController.ReadAll,
+		Handler: func(c *gin.Context) { serviceController.ReadAll(c) },
 	},
 	{
 		URI:     "/service/:service_id",
 		Method:  http.MethodGet,
-		Handler: serviceController.ReadById,
+		Handler: func(c *gin.Context) { serviceController.ReadById(c) },
 	},
 	{
 		URI:     "/service/:service_id",
 		Method:  http.MethodPut,
-		Handler: serviceController.Update,
+		Handler: func(c *gin.Context) { serviceController.Update(c) },
 	},
 	{
 		URI:     "/service/:service_id",
 		Method:  http.MethodDelete,
-		Handler: serviceController.Delete,
+		Handler: func(c *gin.Context) { serviceController.Delete(c) },
 	},
 }

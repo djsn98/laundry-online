@@ -22,7 +22,8 @@ type Route struct {
 }
 
 func Load() []Route {
-	routes := ServiceRoute
+	var routes []Route
+	routes = ServiceRoute
 	routes = append(routes, OrderRoute...)
 	routes = append(routes, CustomerRoute...)
 

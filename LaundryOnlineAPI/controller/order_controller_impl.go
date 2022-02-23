@@ -51,16 +51,15 @@ func (oci *OrderControllerImpl) Create(c *gin.Context) {
 
 func (oci *OrderControllerImpl) ReadAll(c *gin.Context) {
 	result, err := oci.OrderUsecase.ReadAll(c.Request.Context())
-	if err.Error() == "Order not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err.Error()},
-		})
-		return
-	}
-
 	if err != nil {
+		if err.Error() == "Order not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -98,15 +97,15 @@ func (oci *OrderControllerImpl) ReadById(c *gin.Context) {
 
 	orderIdUint := uint(orderIdInt)
 	result, err2 := oci.OrderUsecase.ReadById(c.Request.Context(), &orderIdUint)
-	if err2.Error() == "Order not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err.Error()},
-		})
-		return
-	}
 	if err2 != nil {
+		if err2.Error() == "Order not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -156,15 +155,15 @@ func (oci *OrderControllerImpl) Update(c *gin.Context) {
 
 	updateOrderReq.OrderId = uint(orderIdInt)
 	err2 := oci.OrderUsecase.Update(c.Request.Context(), &updateOrderReq)
-	if err2.Error() == "Order not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err.Error()},
-		})
-		return
-	}
 	if err2 != nil {
+		if err2.Error() == "Order not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -202,15 +201,15 @@ func (oci *OrderControllerImpl) Delete(c *gin.Context) {
 
 	orderIdUint := uint(orderIdInt)
 	err2 := oci.OrderUsecase.Delete(c.Request.Context(), &orderIdUint)
-	if err2.Error() == "Order not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err.Error()},
-		})
-		return
-	}
 	if err2 != nil {
+		if err2.Error() == "Order not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",

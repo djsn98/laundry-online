@@ -50,15 +50,15 @@ func (cci *CustomerControllerImpl) Create(c *gin.Context) {
 
 func (cci *CustomerControllerImpl) ReadAll(c *gin.Context) {
 	result, err := cci.CustomerUsecase.ReadAll(c.Request.Context())
-	if err.Error() != "Customer not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err.Error()},
-		})
-		return
-	}
 	if err != nil {
+		if err.Error() != "Customer not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -87,15 +87,15 @@ func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
 	}
 
 	result, err2 := cci.CustomerUsecase.ReadByUsername(c.Request.Context(), &customerUsername)
-	if err2.Error() == "Customer not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err2.Error()},
-		})
-		return
-	}
 	if err2 != nil {
+		if err2.Error() == "Customer not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err2.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -116,14 +116,6 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 	var updateCustomerReq customerReqRes.UpdateCustomerReq
 
 	err := c.ShouldBindJSON(&updateCustomerReq)
-	if err.Error() == "Customer not exist!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err.Error()},
-		})
-		return
-	}
 	if err != nil {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
@@ -144,15 +136,15 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 	}
 
 	err2 := cci.CustomerUsecase.Update(c.Request.Context(), &updateCustomerReq)
-	if err2.Error() == "Customer not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err2.Error()},
-		})
-		return
-	}
 	if err2 != nil {
+		if err2.Error() == "Customer not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err2.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -181,16 +173,15 @@ func (cci *CustomerControllerImpl) Delete(c *gin.Context) {
 	}
 
 	err2 := cci.CustomerUsecase.Delete(c.Request.Context(), &customerUsername)
-	if err2.Error() == "Customer not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err2.Error()},
-		})
-		return
-	}
-
 	if err2 != nil {
+		if err2.Error() == "Customer not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err2.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",

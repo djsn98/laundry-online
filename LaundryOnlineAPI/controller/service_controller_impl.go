@@ -97,15 +97,15 @@ func (sci *ServiceControllerImpl) ReadById(c *gin.Context) {
 
 	serviceIdUint := uint(serviceIdInt)
 	result, err2 := sci.ServiceUsecase.ReadById(c.Request.Context(), &serviceIdUint)
-	if err2.Error() == "Service not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err2.Error()},
-		})
-		return
-	}
 	if err2 != nil {
+		if err2.Error() == "Service not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err2.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -155,15 +155,15 @@ func (sci *ServiceControllerImpl) Update(c *gin.Context) {
 
 	updateServiceReq.ServiceID = uint(serviceIdInt)
 	err2 := sci.ServiceUsecase.Update(c.Request.Context(), &updateServiceReq)
-	if err2.Error() == "Service not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err2.Error()},
-		})
-		return
-	}
 	if err2 != nil {
+		if err2.Error() == "Service not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err2.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -201,15 +201,15 @@ func (sci *ServiceControllerImpl) Delete(c *gin.Context) {
 
 	serviceIdUint := uint(serviceIdInt)
 	err2 := sci.ServiceUsecase.Delete(c.Request.Context(), &serviceIdUint)
-	if err2.Error() == "Service not found!" {
-		c.JSON(http.StatusNotFound, web.WebResponse{
-			Code:   http.StatusNotFound,
-			Status: "NOT FOUND",
-			Data:   web.MessageRes{Message: err2.Error()},
-		})
-		return
-	}
 	if err2 != nil {
+		if err2.Error() == "Service not found!" {
+			c.JSON(http.StatusNotFound, web.WebResponse{
+				Code:   http.StatusNotFound,
+				Status: "NOT FOUND",
+				Data:   web.MessageRes{Message: err2.Error()},
+			})
+			return
+		}
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",

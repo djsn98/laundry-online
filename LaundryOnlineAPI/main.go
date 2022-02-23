@@ -1,5 +1,10 @@
 package main
 
+import (
+	"LaundryOnlineAPI/router"
+)
+
 func main() {
-	panic("Implement laundry online API!")
+	router := router.New()
+	router.Run()
 }

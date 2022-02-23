@@ -1,31 +1,35 @@
 package routes
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 var OrderRoute = []Route{
 	{
 		URI:     "/order",
 		Method:  http.MethodPost,
-		Handler: orderController.Create,
+		Handler: func(c *gin.Context) { orderController.Create(c) },
 	},
 	{
 		URI:     "/orders",
 		Method:  http.MethodGet,
-		Handler: orderController.ReadAll,
+		Handler: func(c *gin.Context) { orderController.ReadAll(c) },
 	},
 	{
 		URI:     "/order/:order_id",
 		Method:  http.MethodGet,
-		Handler: orderController.ReadById,
+		Handler: func(c *gin.Context) { orderController.ReadById(c) },
 	},
 	{
 		URI:     "/order/:order_id",
 		Method:  http.MethodPut,
-		Handler: orderController.Update,
+		Handler: func(c *gin.Context) { orderController.Update(c) },
 	},
 	{
 		URI:     "/order/:order_id",
 		Method:  http.MethodDelete,
-		Handler: orderController.Delete,
+		Handler: func(c *gin.Context) { orderController.Delete(c) },
 	},
 }
