@@ -1,4 +1,4 @@
-package repostiory
+package repository
 
 import (
 	"LaundryOnlineAPI/model/core"

@@ -3,15 +3,15 @@ package usecase
 import (
 	"LaundryOnlineAPI/model/core"
 	"LaundryOnlineAPI/model/web/orderReqRes"
-	"LaundryOnlineAPI/repostiory"
+	"LaundryOnlineAPI/repository"
 	"context"
 )
 
 type OrderCRUDUsecaseImpl struct {
-	OrderRepo repostiory.OrderRepoInterface
+	OrderRepo repository.OrderRepoInterface
 }
 
-func NewOrderCRUDUsecaseImpl(OrderRepo repostiory.OrderRepoInterface) OrderCRUDUsecaseInterface {
+func NewOrderCRUDUsecaseImpl(OrderRepo repository.OrderRepoInterface) OrderCRUDUsecaseInterface {
 	return &OrderCRUDUsecaseImpl{OrderRepo: OrderRepo}
 }
 

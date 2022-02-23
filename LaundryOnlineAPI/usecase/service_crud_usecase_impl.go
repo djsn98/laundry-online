@@ -3,15 +3,15 @@ package usecase
 import (
 	"LaundryOnlineAPI/model/core"
 	"LaundryOnlineAPI/model/web/serviceReqRes"
-	"LaundryOnlineAPI/repostiory"
+	"LaundryOnlineAPI/repository"
 	"context"
 )
 
 type ServiceCRUDUsecaseImpl struct {
-	ServiceRepo repostiory.ServiceRepoInterface
+	ServiceRepo repository.ServiceRepoInterface
 }
 
-func NewServiceCRUDUsecaseImpl(ServiceRepo repostiory.ServiceRepoInterface) ServiceCRUDUsecaseInterface {
+func NewServiceCRUDUsecaseImpl(ServiceRepo repository.ServiceRepoInterface) ServiceCRUDUsecaseInterface {
 	return &ServiceCRUDUsecaseImpl{ServiceRepo: ServiceRepo}
 }
 
