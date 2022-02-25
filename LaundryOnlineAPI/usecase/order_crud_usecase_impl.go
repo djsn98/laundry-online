@@ -8,11 +8,12 @@ import (
 )
 
 type OrderCRUDUsecaseImpl struct {
-	OrderRepo repository.OrderRepoInterface
+	OrderRepo    repository.OrderRepoInterface
+	CustomerRepo repository.CustomerRepoInterface
 }
 
-func NewOrderCRUDUsecaseImpl(OrderRepo repository.OrderRepoInterface) OrderCRUDUsecaseInterface {
-	return &OrderCRUDUsecaseImpl{OrderRepo: OrderRepo}
+func NewOrderCRUDUsecaseImpl(OrderRepo repository.OrderRepoInterface, CustomerRepo repository.CustomerRepoInterface) OrderCRUDUsecaseInterface {
+	return &OrderCRUDUsecaseImpl{OrderRepo: OrderRepo, CustomerRepo: CustomerRepo}
 }
 
 func (ocui *OrderCRUDUsecaseImpl) Create(ctx context.Context, req *orderReqRes.CreateOrderReq) error {

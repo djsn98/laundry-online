@@ -14,6 +14,6 @@ const (
 
 type Service struct {
 	gorm.Model
-	Name       string `gorm:"size:15;not null"` // Fill service enum value
+	Name       string `gorm:"size:20;not null"` // Fill service enum value
 	PricePerKg uint16 `gorm:"default:0"`
 }

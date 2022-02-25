@@ -41,7 +41,7 @@ func init() {
 	//Instance Usecase
 	serviceUsecase := usecase.NewServiceCRUDUsecaseImpl(serviceRepo)
 	customerUsecase := usecase.NewCustomerCRUDUsecaseImpl(customerRepo)
-	orderUsecase := usecase.NewOrderCRUDUsecaseImpl(orderRepo)
+	orderUsecase := usecase.NewOrderCRUDUsecaseImpl(orderRepo, customerRepo)
 
 	//Instance Controller
 	serviceController = controller.NewServiceControllerImpl(serviceUsecase)
