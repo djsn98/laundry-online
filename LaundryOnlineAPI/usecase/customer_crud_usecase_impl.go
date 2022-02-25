@@ -5,6 +5,7 @@ import (
 	"LaundryOnlineAPI/model/web/customerReqRes"
 	"LaundryOnlineAPI/repository"
 	"context"
+	"fmt"
 )
 
 type CustomerCRUDUsecaseImpl struct {
@@ -38,11 +39,25 @@ func (ccui *CustomerCRUDUsecaseImpl) ReadAll(ctx context.Context) (*[]customerRe
 	}
 
 	var responses []customerReqRes.ReadCustomerRes
+
 	for _, customer := range *customers {
+
+		var orders []customerReqRes.CustomerOrder
+		for _, order := range customer.Order {
+			order := customerReqRes.CustomerOrder{
+				Id:         order.ID,
+				ServiceId:  order.ServiceID,
+				DryWeight:  uint(order.DryWeight),
+				TotalPrice: uint(order.TotalPrice),
+				Status:     order.Status,
+			}
+			orders = append(orders, order)
+		}
+
 		response := customerReqRes.ReadCustomerRes{
 			Name:     customer.Name,
 			Username: customer.Username,
-			Order:    &customer.Order,
+			Order:    orders,
 			Address:  customer.Address,
 		}
 		responses = append(responses, response)
@@ -57,10 +72,23 @@ func (ccui *CustomerCRUDUsecaseImpl) ReadByUsername(ctx context.Context, custome
 		return &customerReqRes.ReadCustomerRes{}, err
 	}
 
+	// Memasukan customer order ke responses order
+	var orders []customerReqRes.CustomerOrder
+	for _, order := range customer.Order {
+		order := customerReqRes.CustomerOrder{
+			Id:         order.ID,
+			ServiceId:  order.ServiceID,
+			DryWeight:  uint(order.DryWeight),
+			TotalPrice: uint(order.TotalPrice),
+			Status:     order.Status,
+		}
+		orders = append(orders, order)
+	}
+
 	response := &customerReqRes.ReadCustomerRes{
 		Name:     customer.Name,
 		Username: customer.Username,
-		Order:    &customer.Order,
+		Order:    orders,
 		Address:  customer.Address,
 	}
 	return response, nil
@@ -77,6 +105,7 @@ func (ccui *CustomerCRUDUsecaseImpl) Update(ctx context.Context, req *customerRe
 	}
 	if req.Username != "" {
 		customer.Username = req.Username
+		fmt.Println(req.Username)
 	}
 	if req.Password != "" {
 		customer.Password = req.Password

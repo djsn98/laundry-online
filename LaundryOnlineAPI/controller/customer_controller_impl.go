@@ -77,7 +77,7 @@ func (cci *CustomerControllerImpl) ReadAll(c *gin.Context) {
 
 func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
 	customerUsername := c.Param("customer_username")
-	if customerUsername != "" {
+	if customerUsername == "" {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
 			Status: "BAD REQUEST",
@@ -126,7 +126,7 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 	}
 
 	updateCustomerReq.Username = c.Param("customer_username")
-	if updateCustomerReq.Username != "" {
+	if updateCustomerReq.Username == "" {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
 			Status: "BAD REQUEST",
@@ -163,7 +163,7 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 
 func (cci *CustomerControllerImpl) Delete(c *gin.Context) {
 	customerUsername := c.Param("customer_username")
-	if customerUsername != "" {
+	if customerUsername == "" {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
 			Status: "BAD REQUEST",

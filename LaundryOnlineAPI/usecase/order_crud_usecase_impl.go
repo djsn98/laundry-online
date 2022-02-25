@@ -18,11 +18,11 @@ func NewOrderCRUDUsecaseImpl(OrderRepo repository.OrderRepoInterface, CustomerRe
 
 func (ocui *OrderCRUDUsecaseImpl) Create(ctx context.Context, req *orderReqRes.CreateOrderReq) error {
 	order := &core.Order{
-		CustomerID: req.CustomerId,
-		ServiceID:  req.ServiceId,
-		DryWeight:  uint8(req.DryWeight),
-		TotalPrice: req.TotalPrice,
-		Status:     req.Status,
+		CustomerUsername: req.CustomerUsername,
+		ServiceID:        req.ServiceId,
+		DryWeight:        uint8(req.DryWeight),
+		TotalPrice:       req.TotalPrice,
+		Status:           req.Status,
 	}
 
 	err := ocui.OrderRepo.Save(ctx, order)
@@ -33,20 +33,21 @@ func (ocui *OrderCRUDUsecaseImpl) Create(ctx context.Context, req *orderReqRes.C
 	return nil
 }
 
-func (ocui *OrderCRUDUsecaseImpl) ReadAll(ctx context.Context) (*[]orderReqRes.ReadOrderRes, error) {
+func (ocui *OrderCRUDUsecaseImpl) ReadAll(ctx context.Context) (*[]orderReqRes.ReadOrderWithIdRes, error) {
 	orders, err := ocui.OrderRepo.FindAll(ctx)
 	if err != nil {
-		return &[]orderReqRes.ReadOrderRes{}, err
+		return &[]orderReqRes.ReadOrderWithIdRes{}, err
 	}
 
-	var responses []orderReqRes.ReadOrderRes
+	var responses []orderReqRes.ReadOrderWithIdRes
 	for _, order := range *orders {
-		response := orderReqRes.ReadOrderRes{
-			CustomerId: order.CustomerID,
-			ServiceId:  order.ServiceID,
-			DryWeight:  order.DryWeight,
-			TotalPrice: order.TotalPrice,
-			Status:     order.Status,
+		response := orderReqRes.ReadOrderWithIdRes{
+			Id:               order.ID,
+			CustomerUsername: order.CustomerUsername,
+			ServiceId:        order.ServiceID,
+			DryWeight:        order.DryWeight,
+			TotalPrice:       order.TotalPrice,
+			Status:           order.Status,
 		}
 		responses = append(responses, response)
 	}
@@ -61,11 +62,11 @@ func (ocui *OrderCRUDUsecaseImpl) ReadById(ctx context.Context, orderId *uint) (
 	}
 
 	response := &orderReqRes.ReadOrderRes{
-		CustomerId: order.CustomerID,
-		ServiceId:  order.ServiceID,
-		DryWeight:  order.DryWeight,
-		TotalPrice: order.TotalPrice,
-		Status:     order.Status,
+		CustomerUsername: order.CustomerUsername,
+		ServiceId:        order.ServiceID,
+		DryWeight:        order.DryWeight,
+		TotalPrice:       order.TotalPrice,
+		Status:           order.Status,
 	}
 	return response, nil
 }

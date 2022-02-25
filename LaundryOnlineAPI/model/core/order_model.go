@@ -14,11 +14,11 @@ const (
 
 type Order struct {
 	gorm.Model
-	CustomerID uint
-	Customer   Customer `gorm:"forignKey:CustomerID;not null"`
-	ServiceID  uint
-	Service    Service `gorm:"forignKey:ServiceID;not null"`
-	DryWeight  uint8   `gorm:"not null"`
-	TotalPrice uint32  `gorm:"not null"`
-	Status     string  `gorm:"size:50;not null"`
+	CustomerUsername string
+	Customer         Customer `gorm:"forignKey:CustomerUsername;not null"`
+	ServiceID        uint
+	Service          Service `gorm:"forignKey:ServiceID;not null"`
+	DryWeight        uint8   `gorm:"not null"`
+	TotalPrice       uint32  `gorm:"not null"`
+	Status           string  `gorm:"size:50;not null"`
 }

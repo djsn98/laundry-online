@@ -300,8 +300,8 @@
                      "schema": {
                         "type": "object",
                         "properties": {
-                           "customer_id": {
-                              "type": "number",
+                           "customer_username": {
+                              "type": "string",
                               "required": true
                            },
                            "service_id": {
@@ -323,7 +323,7 @@
                         }
                      },
                      "example": {
-                        "customer_id": 1,
+                        "customer_username": "@djson12",
                         "service_id": 1,
                         "dry_weight": 12,
                         "total_price": 120000,
@@ -397,7 +397,7 @@
                            "data": [
                               {
                                  "id": 1,
-                                 "customer_id": 2,
+                                 "customer_username": "@djson123",
                                  "service_id": 3,
                                  "dry_weight": 13,
                                  "total_price": 130000,
@@ -405,7 +405,7 @@
                               },
                               {
                                  "id": 2,
-                                 "customer_id": 2,
+                                 "customer_username": "@budi123",
                                  "service_id": 4,
                                  "dry_weight": 5,
                                  "total_price": 50000,
@@ -457,7 +457,7 @@
                            "code": 200,
                            "status": "OK",
                            "data": {
-                              "customer_id": 1,
+                              "customer_username": 1,
                               "service_id": 3,
                               "dry_weight": 5,
                               "total_price": 50000,
@@ -830,9 +830,6 @@
                            "name": {
                               "type": "string"
                            },
-                           "username": {
-                              "type": "string"
-                           },
                            "password": {
                               "type": "string"
                            },
@@ -846,7 +843,6 @@
                      },
                      "example": {
                         "name": "Dennis Jason",
-                        "username": "@den123",
                         "password": "a2FjYW1hdGExMjM0NTZ1c2FzN2F0JjZzaHN",
                         "balance": 250000,
                         "address": "Jl. apel 1 No.3 blok AK 9, Kel. Harapan Baru, Prov. Jakarta Utara, Kota Jakarta"
@@ -962,7 +958,7 @@
          "Order": {
             "type": "object",
             "properties": {
-               "customer_id": {
+               "customer_username": {
                   "type": "number"
                },
                "service_id": {
@@ -985,8 +981,8 @@
                "id": {
                   "type": "number"
                },
-               "customer_id": {
-                  "type": "number"
+               "customer_username": {
+                  "type": "string"
                },
                "service_id": {
                   "type": "number"
@@ -1002,7 +998,7 @@
                }
             }
          },
-         "OrderWithoutCustomerId": {
+         "OrderWithoutCustomerUsername": {
             "type": "object",
             "properties": {
                "id": {
@@ -1034,7 +1030,7 @@
                "Order": {
                   "type": "array",
                   "items": {
-                     "$ref": "#/components/schemas/OrderWithoutCustomerId"
+                     "$ref": "#/components/schemas/OrderWithoutCustomerUsername"
                   }
                },
                "address": {
