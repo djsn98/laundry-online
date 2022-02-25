@@ -51,7 +51,7 @@ func (cci *CustomerControllerImpl) Create(c *gin.Context) {
 func (cci *CustomerControllerImpl) ReadAll(c *gin.Context) {
 	result, err := cci.CustomerUsecase.ReadAll(c.Request.Context())
 	if err != nil {
-		if err.Error() != "Customer not found!" {
+		if err.Error() == "Customer not found!" || err.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
@@ -88,7 +88,7 @@ func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
 
 	result, err2 := cci.CustomerUsecase.ReadByUsername(c.Request.Context(), &customerUsername)
 	if err2 != nil {
-		if err2.Error() == "Customer not found!" {
+		if err2.Error() == "Customer not found!" || err2.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
@@ -137,7 +137,7 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 
 	err2 := cci.CustomerUsecase.Update(c.Request.Context(), &updateCustomerReq)
 	if err2 != nil {
-		if err2.Error() == "Customer not found!" {
+		if err2.Error() == "Customer not found!" || err2.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
@@ -174,7 +174,7 @@ func (cci *CustomerControllerImpl) Delete(c *gin.Context) {
 
 	err2 := cci.CustomerUsecase.Delete(c.Request.Context(), &customerUsername)
 	if err2 != nil {
-		if err2.Error() == "Customer not found!" {
+		if err2.Error() == "Customer not found!" || err2.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",

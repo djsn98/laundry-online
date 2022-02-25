@@ -52,7 +52,7 @@ func (sci *ServiceControllerImpl) Create(c *gin.Context) {
 func (sci *ServiceControllerImpl) ReadAll(c *gin.Context) {
 	result, err := sci.ServiceUsecase.ReadAll(c.Request.Context())
 	if err != nil {
-		if err.Error() == "Service not found!" {
+		if err.Error() == "Service not found!" || err.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
@@ -156,7 +156,7 @@ func (sci *ServiceControllerImpl) Update(c *gin.Context) {
 	updateServiceReq.ServiceID = uint(serviceIdInt)
 	err2 := sci.ServiceUsecase.Update(c.Request.Context(), &updateServiceReq)
 	if err2 != nil {
-		if err2.Error() == "Service not found!" {
+		if err2.Error() == "Service not found!" || err2.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
@@ -202,7 +202,7 @@ func (sci *ServiceControllerImpl) Delete(c *gin.Context) {
 	serviceIdUint := uint(serviceIdInt)
 	err2 := sci.ServiceUsecase.Delete(c.Request.Context(), &serviceIdUint)
 	if err2 != nil {
-		if err2.Error() == "Service not found!" {
+		if err2.Error() == "Service not found!" || err2.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
