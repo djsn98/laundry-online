@@ -1,6 +1,7 @@
 package router
 
 import (
+	"LaundryOnlineAPI/middlewares"
 	"LaundryOnlineAPI/router/routes"
 	"net/http"
 
@@ -8,6 +9,7 @@ import (
 )
 
 func setupRouter(router *gin.Engine) *gin.Engine {
+	router.Use(middlewares.DisableCORSMiddleware())
 	routes := routes.Load()
 
 	for _, route := range routes {
