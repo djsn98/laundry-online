@@ -1,8 +1,9 @@
 package main
 
-import "LaundryOnlineAPI/router"
+import (
+	"LaundryOnlineAPI/application"
+)
 
 func main() {
-	router := router.New()
-	router.Run()
+	application.StartApp()
 }

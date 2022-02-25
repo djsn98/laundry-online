@@ -10,6 +10,16 @@ import (
 )
 
 func Connect() *gorm.DB {
+	// var env = config.Config
+	// fmt.Print(env)
+	// dbConf := fmt.Sprintf(
+	// 	"host=%s port=%s user=%s dbname=%s sslmode=disable password=%s",
+	// 	env.DBHOST,
+	// 	env.DBPORT,
+	// 	env.DBUSER,
+	// 	env.DBNAME,
+	// 	env.DBPASS,
+	// )
 	sqlDB, err := sql.Open("postgres", "host=localhost port=5432 user=dennis dbname=laundry_online_api_db sslmode=disable password=susah13234")
 	if err != nil {
 		panic(err)
