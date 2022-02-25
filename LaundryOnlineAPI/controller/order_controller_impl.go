@@ -56,7 +56,7 @@ func (oci *OrderControllerImpl) ReadAll(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err.Error()},
+				Data:   web.MessageRes{Message: "Order not found!"},
 			})
 			return
 		}
@@ -102,7 +102,7 @@ func (oci *OrderControllerImpl) ReadById(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err.Error()},
+				Data:   web.MessageRes{Message: "Order not found!"},
 			})
 			return
 		}
@@ -160,7 +160,7 @@ func (oci *OrderControllerImpl) Update(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err.Error()},
+				Data:   web.MessageRes{Message: "Order not found!"},
 			})
 			return
 		}
@@ -206,7 +206,7 @@ func (oci *OrderControllerImpl) Delete(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err.Error()},
+				Data:   web.MessageRes{Message: "Order not found!"},
 			})
 			return
 		}

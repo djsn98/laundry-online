@@ -160,7 +160,7 @@ func (sci *ServiceControllerImpl) Update(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err2.Error()},
+				Data:   web.MessageRes{Message: "Service not found!"},
 			})
 			return
 		}
@@ -206,7 +206,7 @@ func (sci *ServiceControllerImpl) Delete(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err2.Error()},
+				Data:   web.MessageRes{Message: "Service not found!"},
 			})
 			return
 		}

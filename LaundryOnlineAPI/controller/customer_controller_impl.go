@@ -55,7 +55,7 @@ func (cci *CustomerControllerImpl) ReadAll(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err.Error()},
+				Data:   web.MessageRes{Message: "Customer not found!"},
 			})
 			return
 		}
@@ -92,7 +92,7 @@ func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err2.Error()},
+				Data:   web.MessageRes{Message: "Customer not found!"},
 			})
 			return
 		}
@@ -141,7 +141,7 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err2.Error()},
+				Data:   web.MessageRes{Message: "Customer not found!"},
 			})
 			return
 		}
@@ -178,7 +178,7 @@ func (cci *CustomerControllerImpl) Delete(c *gin.Context) {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
 				Status: "NOT FOUND",
-				Data:   web.MessageRes{Message: err2.Error()},
+				Data:   web.MessageRes{Message: "Customer not found!"},
 			})
 			return
 		}
