@@ -30,3 +30,7 @@ type CustomerCRUDUsecaseInterface interface {
 	Update(ctx context.Context, req *customerReqRes.UpdateCustomerReq) error
 	Delete(ctx context.Context, customerUsername *string) error
 }
+
+type CustomerLoginUsecaseInterface interface {
+	Login(ctx context.Context, req *customerReqRes.LoginCustomerReq) (bool, error)
+}
