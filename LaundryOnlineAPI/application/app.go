@@ -9,13 +9,17 @@ import (
 )
 
 func init() {
+	// Load data from file "env" to var Config
+	// Var Config there is in "./config/config.go"
 	config.Load()
 }
 
 func StartApp() {
+	// Get Config
 	var env = config.Config
 	fmt.Println(env)
 
+	// Setup server
 	address := env.HOST + ":" + env.PORT
 	serverConfig := g.Config{
 		ListenAddr: address,
@@ -24,5 +28,7 @@ func StartApp() {
 			fmt.Println("Server running on port " + env.PORT)
 		},
 	}
+
+	// Run server
 	g.Run(serverConfig)
 }

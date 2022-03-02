@@ -2,7 +2,7 @@ package main
 
 import (
 	"LaundryOnlineAPI/application" // Run init func to load Env config
-	"LaundryOnlineAPI/database"
+	"LaundryOnlineAPI/database"    // Run init funt to open DB connection
 	"flag"
 	"fmt"
 )

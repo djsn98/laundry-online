@@ -2,17 +2,20 @@ package router
 
 import (
 	"LaundryOnlineAPI/middlewares"
-	"LaundryOnlineAPI/router/routes"
+	"LaundryOnlineAPI/router/routes" // Run func init to initialized controller
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func setupRouter(router *gin.Engine) *gin.Engine {
+	// Disable CORS
 	router.Use(middlewares.DisableCORSMiddleware())
 
+	// Serve openapi 3
 	router.Static("/apispec", "apiSpec")
 
+	// Load and register routes
 	routes := routes.Load()
 	for _, route := range routes {
 		switch route.Method {

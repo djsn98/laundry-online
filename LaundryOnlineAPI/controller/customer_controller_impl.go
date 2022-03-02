@@ -20,7 +20,10 @@ func NewCustomerControllerImpl(CustomerUsecase usecase.CustomerCRUDUsecaseInterf
 func (cci *CustomerControllerImpl) Create(c *gin.Context) {
 	var createCustomerReq customerReqRes.CreateCustomerReq
 
+	// Get req body and place into variable
 	err := c.ShouldBindJSON(&createCustomerReq)
+
+	// If error send BAD REQUEST response and error mn
 	if err != nil {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
@@ -30,7 +33,10 @@ func (cci *CustomerControllerImpl) Create(c *gin.Context) {
 		return
 	}
 
+	// Call service to create Customer
 	err2 := cci.CustomerUsecase.Create(c.Request.Context(), &createCustomerReq)
+
+	// If error send INTERNAL SERVER ERROR response and error message
 	if err2 != nil {
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
@@ -40,6 +46,7 @@ func (cci *CustomerControllerImpl) Create(c *gin.Context) {
 		return
 	}
 
+	// If success send OK response
 	c.JSON(http.StatusOK, web.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK",
@@ -49,8 +56,12 @@ func (cci *CustomerControllerImpl) Create(c *gin.Context) {
 }
 
 func (cci *CustomerControllerImpl) ReadAll(c *gin.Context) {
+	// Call service read all customer
 	result, err := cci.CustomerUsecase.ReadAll(c.Request.Context())
+
+	// If error
 	if err != nil {
+		// Error not found handling
 		if err.Error() == "Customer not found!" || err.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
@@ -59,6 +70,8 @@ func (cci *CustomerControllerImpl) ReadAll(c *gin.Context) {
 			})
 			return
 		}
+
+		// Generic error handling
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -67,6 +80,7 @@ func (cci *CustomerControllerImpl) ReadAll(c *gin.Context) {
 		return
 	}
 
+	// If success send OK response
 	c.JSON(http.StatusOK, web.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK",
@@ -76,7 +90,10 @@ func (cci *CustomerControllerImpl) ReadAll(c *gin.Context) {
 }
 
 func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
+	// get customer_username param
 	customerUsername := c.Param("customer_username")
+
+	// If not input customer_username param
 	if customerUsername == "" {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
@@ -86,8 +103,10 @@ func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
 		return
 	}
 
+	// Call service read customer by username
 	result, err2 := cci.CustomerUsecase.ReadByUsername(c.Request.Context(), &customerUsername)
 	if err2 != nil {
+		// Error not foun handling
 		if err2.Error() == "Customer not found!" || err2.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
@@ -96,6 +115,7 @@ func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
 			})
 			return
 		}
+		// Generic error handling
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -104,6 +124,7 @@ func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
 		return
 	}
 
+	// If success send OK response
 	c.JSON(http.StatusOK, web.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK",
@@ -115,7 +136,9 @@ func (cci *CustomerControllerImpl) ReadByUsername(c *gin.Context) {
 func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 	var updateCustomerReq customerReqRes.UpdateCustomerReq
 
+	// Get req body and place into variable
 	err := c.ShouldBindJSON(&updateCustomerReq)
+	// If error send BAD REQUEST response
 	if err != nil {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
@@ -125,7 +148,10 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 		return
 	}
 
+	// Get customer_username param
 	updateCustomerReq.Username = c.Param("customer_username")
+
+	// If not input customer_username param
 	if updateCustomerReq.Username == "" {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
@@ -135,8 +161,10 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 		return
 	}
 
+	// Call service update customer
 	err2 := cci.CustomerUsecase.Update(c.Request.Context(), &updateCustomerReq)
 	if err2 != nil {
+		// Not found error handling
 		if err2.Error() == "Customer not found!" || err2.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
@@ -145,6 +173,8 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 			})
 			return
 		}
+
+		// Generic error handling
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -153,6 +183,7 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 		return
 	}
 
+	// If success send OK response
 	c.JSON(http.StatusOK, web.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK",
@@ -162,7 +193,10 @@ func (cci *CustomerControllerImpl) Update(c *gin.Context) {
 }
 
 func (cci *CustomerControllerImpl) Delete(c *gin.Context) {
+	// Get customer_username param
 	customerUsername := c.Param("customer_username")
+
+	// If not input customer_username param
 	if customerUsername == "" {
 		c.JSON(http.StatusBadRequest, web.WebResponse{
 			Code:   http.StatusBadRequest,
@@ -172,8 +206,10 @@ func (cci *CustomerControllerImpl) Delete(c *gin.Context) {
 		return
 	}
 
+	// Call service delete customer
 	err2 := cci.CustomerUsecase.Delete(c.Request.Context(), &customerUsername)
 	if err2 != nil {
+		// Not found error handling
 		if err2.Error() == "Customer not found!" || err2.Error() == "record not found" {
 			c.JSON(http.StatusNotFound, web.WebResponse{
 				Code:   http.StatusNotFound,
@@ -182,6 +218,8 @@ func (cci *CustomerControllerImpl) Delete(c *gin.Context) {
 			})
 			return
 		}
+
+		// Generic error handling
 		c.JSON(http.StatusInternalServerError, web.WebResponse{
 			Code:   http.StatusInternalServerError,
 			Status: "INTERNAL SERVER ERROR",
@@ -190,6 +228,7 @@ func (cci *CustomerControllerImpl) Delete(c *gin.Context) {
 		return
 	}
 
+	// If success send OK response
 	c.JSON(http.StatusOK, web.WebResponse{
 		Code:   http.StatusOK,
 		Status: "OK",

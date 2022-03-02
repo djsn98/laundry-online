@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Placeholder to make
 var (
 	serviceController  controller.ServiceControllerInterface
 	customerController controller.CustomerControllerInterface
@@ -21,6 +22,7 @@ type Route struct {
 	Handler func(c *gin.Context)
 }
 
+// Merge all route into one route slice
 func Load() []Route {
 	var routes []Route
 	routes = ServiceRoute
@@ -30,6 +32,7 @@ func Load() []Route {
 	return routes
 }
 
+// Initialized controller for regiter controller method to routes
 func init() {
 	DB := database.Connection
 

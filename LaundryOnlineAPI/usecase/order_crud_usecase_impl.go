@@ -17,6 +17,7 @@ func NewOrderCRUDUsecaseImpl(OrderRepo repository.OrderRepoInterface, CustomerRe
 }
 
 func (ocui *OrderCRUDUsecaseImpl) Create(ctx context.Context, req *orderReqRes.CreateOrderReq) error {
+	// Create new object order and input req data
 	order := &core.Order{
 		CustomerUsername: req.CustomerUsername,
 		ServiceID:        req.ServiceId,
@@ -25,6 +26,7 @@ func (ocui *OrderCRUDUsecaseImpl) Create(ctx context.Context, req *orderReqRes.C
 		Status:           req.Status,
 	}
 
+	// Calll repo to save data
 	err := ocui.OrderRepo.Save(ctx, order)
 	if err != nil {
 		return err
@@ -34,11 +36,15 @@ func (ocui *OrderCRUDUsecaseImpl) Create(ctx context.Context, req *orderReqRes.C
 }
 
 func (ocui *OrderCRUDUsecaseImpl) ReadAll(ctx context.Context) (*[]orderReqRes.ReadOrderWithIdRes, error) {
+	// Call repo to get all ordee
 	orders, err := ocui.OrderRepo.FindAll(ctx)
+
+	// If error return null object and error
 	if err != nil {
 		return &[]orderReqRes.ReadOrderWithIdRes{}, err
 	}
 
+	// Convert slice order into slice read order with id res
 	var responses []orderReqRes.ReadOrderWithIdRes
 	for _, order := range *orders {
 		response := orderReqRes.ReadOrderWithIdRes{
@@ -56,11 +62,13 @@ func (ocui *OrderCRUDUsecaseImpl) ReadAll(ctx context.Context) (*[]orderReqRes.R
 }
 
 func (ocui *OrderCRUDUsecaseImpl) ReadById(ctx context.Context, orderId *uint) (*orderReqRes.ReadOrderRes, error) {
+	// call repo to find order by id
 	order, err := ocui.OrderRepo.FindById(ctx, orderId)
 	if err != nil {
 		return &orderReqRes.ReadOrderRes{}, err
 	}
 
+	// Convert order to read order res
 	response := &orderReqRes.ReadOrderRes{
 		CustomerUsername: order.CustomerUsername,
 		ServiceId:        order.ServiceID,
@@ -72,11 +80,13 @@ func (ocui *OrderCRUDUsecaseImpl) ReadById(ctx context.Context, orderId *uint) (
 }
 
 func (ocui *OrderCRUDUsecaseImpl) Update(ctx context.Context, req *orderReqRes.UpdateOrderReq) error {
+	// Call repo to check whether order exist or not
 	order, err := ocui.OrderRepo.FindById(ctx, &req.OrderId)
 	if err != nil {
 		return err
 	}
 
+	// Check whether req empty or not
 	if req.ServiceId != 0 {
 		order.ServiceID = req.ServiceId
 	}
@@ -90,6 +100,7 @@ func (ocui *OrderCRUDUsecaseImpl) Update(ctx context.Context, req *orderReqRes.U
 		order.Status = req.Status
 	}
 
+	// Call repo to update order
 	err2 := ocui.OrderRepo.Update(ctx, order)
 	if err2 != nil {
 		return err2
@@ -98,11 +109,13 @@ func (ocui *OrderCRUDUsecaseImpl) Update(ctx context.Context, req *orderReqRes.U
 }
 
 func (ocui *OrderCRUDUsecaseImpl) Delete(ctx context.Context, orderId *uint) error {
+	// Call repo to check whether order exist or not
 	order, err := ocui.OrderRepo.FindById(ctx, orderId)
 	if err != nil {
 		return err
 	}
 
+	// Call repo to destroy order data
 	err2 := ocui.OrderRepo.Destroy(ctx, &order.ID)
 	if err2 != nil {
 		return err2
