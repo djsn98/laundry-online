@@ -10,8 +10,10 @@ import (
 
 func setupRouter(router *gin.Engine) *gin.Engine {
 	router.Use(middlewares.DisableCORSMiddleware())
-	routes := routes.Load()
 
+	router.Static("/apispec", "apiSpec")
+
+	routes := routes.Load()
 	for _, route := range routes {
 		switch route.Method {
 		case http.MethodPost:

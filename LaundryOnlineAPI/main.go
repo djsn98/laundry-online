@@ -1,7 +1,7 @@
 package main
 
 import (
-	"LaundryOnlineAPI/application"
+	"LaundryOnlineAPI/application" // Run init func to load Env config
 	"LaundryOnlineAPI/database"
 	"flag"
 	"fmt"
@@ -17,5 +17,6 @@ func main() {
 		fmt.Println("DB migrate doned")
 		return
 	}
+	// Run server app
 	application.StartApp()
 }
