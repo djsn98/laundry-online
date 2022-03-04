@@ -25,3 +25,7 @@ type OrderControllerInterface interface {
 	Update(c *gin.Context)
 	Delete(c *gin.Context)
 }
+
+type LoginCustomerControllerInterface interface {
+	Login(c *gin.Context)
+}
