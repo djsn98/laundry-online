@@ -13,6 +13,10 @@ type CustomerLoginUsecaseImpl struct {
 	CustomerRepo repository.CustomerRepoInterface
 }
 
+func NewCustomerLoginUsecaseImpl(CustomerRepo repository.CustomerRepoInterface) CustomerLoginUsecaseInterface {
+	return &CustomerLoginUsecaseImpl{CustomerRepo: CustomerRepo}
+}
+
 func (clui *CustomerLoginUsecaseImpl) Login(ctx context.Context, req *customerReqRes.LoginCustomerReq) (string, bool, error) {
 	var config = config.Config
 	customerInfo, err := auth.AuthenticateCustomer(ctx, req.Username, req.Password, clui.CustomerRepo)
@@ -29,5 +33,5 @@ func (clui *CustomerLoginUsecaseImpl) Login(ctx context.Context, req *customerRe
 		return "", false, errors.New("Failed generate JWT!")
 	}
 
-	return tokenString, false, errors.New("Success login!")
+	return tokenString, true, nil
 }

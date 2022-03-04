@@ -32,4 +32,9 @@ var CustomerRoute = []Route{
 		Method:  http.MethodDelete,
 		Handler: func(c *gin.Context) { customerController.Delete(c) },
 	},
+	{
+		URI:     "/customer-login",
+		Method:  http.MethodPost,
+		Handler: func(c *gin.Context) { customerLoginController.Login(c) },
+	},
 }

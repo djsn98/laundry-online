@@ -14,6 +14,10 @@ type LoginCustomerControllerImpl struct {
 	LoginCustomerUsecase usecase.CustomerLoginUsecaseInterface
 }
 
+func NewLoginCustomerControllerImpl(LoginCustomerUsecase usecase.CustomerLoginUsecaseInterface) LoginCustomerControllerInterface {
+	return &LoginCustomerControllerImpl{LoginCustomerUsecase: LoginCustomerUsecase}
+}
+
 func (lcci *LoginCustomerControllerImpl) Login(c *gin.Context) {
 	var loginCustomerReq customerReqRes.LoginCustomerReq
 
