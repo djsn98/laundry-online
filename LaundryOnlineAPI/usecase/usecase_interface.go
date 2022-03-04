@@ -32,5 +32,5 @@ type CustomerCRUDUsecaseInterface interface {
 }
 
 type CustomerLoginUsecaseInterface interface {
-	Login(ctx context.Context, req *customerReqRes.LoginCustomerReq) (bool, error)
+	Login(ctx context.Context, req *customerReqRes.LoginCustomerReq) (string, bool, error)
 }
